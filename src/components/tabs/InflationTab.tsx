@@ -35,6 +35,7 @@ export function InflationTab({ inflationRecords, onNewInflation, onDeleteInflati
         </button>
       </div>
 
+      {/* Inflación acumulada total */}
       {accumulatedInflation.length > 0 && (
         <div className="bg-teal-50 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
           <p className="text-xs sm:text-sm text-teal-700">Inflación acumulada total</p>
@@ -47,6 +48,7 @@ export function InflationTab({ inflationRecords, onNewInflation, onDeleteInflati
         </div>
       )}
 
+      {/* Lista de registros */}
       <div className="space-y-2">
         {accumulatedInflation.slice().reverse().map(record => (
           <div

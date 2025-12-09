@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 export default function RegistroPage() {
   const { signUp } = useAuth();
-
+  
   const [form, setForm] = useState({
     fullName: '',
     email: '',
@@ -69,7 +69,7 @@ export default function RegistroPage() {
             <p className="text-sm text-stone-400 mb-6">
               Revisá tu bandeja de spam si no lo encontrás.
             </p>
-            <Link
+            <Link 
               href="/login"
               className="inline-block px-6 py-2.5 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 transition-colors"
             >

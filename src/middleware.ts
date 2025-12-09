@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const isAuthPage = ['/login', '/registro', '/recuperar'].some(path =>
+  const isAuthPage = ['/login', '/registro', '/recuperar'].some(path => 
     request.nextUrl.pathname.startsWith(path)
   );
 

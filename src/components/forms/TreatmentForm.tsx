@@ -71,10 +71,10 @@ export function TreatmentForm({ treatment, patientId, onSave, onCancel }: Treatm
             type="number"
             className="w-full px-3 py-2.5 border border-stone-200 rounded-lg text-sm outline-none focus:border-teal-500 transition-colors"
             value={form.initial_fee}
-            onChange={e => setForm({
-              ...form,
+            onChange={e => setForm({ 
+              ...form, 
               initial_fee: e.target.value,
-              current_fee: form.current_fee || e.target.value
+              current_fee: form.current_fee || e.target.value 
             })}
             required
             placeholder="0"

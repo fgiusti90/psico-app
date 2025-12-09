@@ -276,7 +276,7 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
             <div className="flex items-center gap-4">
               <div className="flex-1 sm:w-64">
                 <div className="h-4 bg-stone-200 rounded-full overflow-hidden">
-                  <div
+                  <div 
                     className={`h-full rounded-full transition-all duration-500 ${
                       metrics.collectionRate >= 80 ? 'bg-green-500' :
                       metrics.collectionRate >= 50 ? 'bg-amber-500' : 'bg-red-500'
@@ -303,7 +303,7 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
       {/* Gráficos principales */}
       {metrics.monthlyData.length > 1 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
-
+          
           {/* Cobrado vs Pendiente (Barras apiladas) */}
           <div className="bg-stone-50 rounded-xl p-3 sm:p-4">
             <h3 className="font-semibold text-stone-700 mb-3 sm:mb-4 text-sm sm:text-base">Cobrado vs Pendiente</h3>
@@ -311,8 +311,8 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={metrics.monthlyData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" />
-                  <XAxis
-                    dataKey="monthLabel"
+                  <XAxis 
+                    dataKey="monthLabel" 
                     tick={{ fontSize: 10, fill: '#78716c' }}
                     axisLine={{ stroke: '#d6d3d1' }}
                     tickLine={{ stroke: '#d6d3d1' }}
@@ -321,7 +321,7 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
                     height={50}
                     interval={0}
                   />
-                  <YAxis
+                  <YAxis 
                     tick={{ fontSize: 10, fill: '#78716c' }}
                     axisLine={{ stroke: '#d6d3d1' }}
                     tickLine={{ stroke: '#d6d3d1' }}
@@ -329,7 +329,7 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
                     width={45}
                   />
                   <Tooltip content={<StackedBarTooltip />} />
-                  <Legend
+                  <Legend 
                     wrapperStyle={{ fontSize: '12px' }}
                     formatter={(value) => value === 'collected' ? 'Cobrado' : 'Pendiente'}
                   />
@@ -347,8 +347,8 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={metrics.monthlyData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" />
-                  <XAxis
-                    dataKey="monthLabel"
+                  <XAxis 
+                    dataKey="monthLabel" 
                     tick={{ fontSize: 10, fill: '#78716c' }}
                     axisLine={{ stroke: '#d6d3d1' }}
                     tickLine={{ stroke: '#d6d3d1' }}
@@ -357,7 +357,7 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
                     height={50}
                     interval={0}
                   />
-                  <YAxis
+                  <YAxis 
                     tick={{ fontSize: 10, fill: '#78716c' }}
                     axisLine={{ stroke: '#d6d3d1' }}
                     tickLine={{ stroke: '#d6d3d1' }}
@@ -381,8 +381,8 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={metrics.monthlyData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" />
-                  <XAxis
-                    dataKey="monthLabel"
+                  <XAxis 
+                    dataKey="monthLabel" 
                     tick={{ fontSize: 10, fill: '#78716c' }}
                     axisLine={{ stroke: '#d6d3d1' }}
                     tickLine={{ stroke: '#d6d3d1' }}
@@ -391,7 +391,7 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
                     height={50}
                     interval={0}
                   />
-                  <YAxis
+                  <YAxis 
                     tick={{ fontSize: 10, fill: '#78716c' }}
                     axisLine={{ stroke: '#d6d3d1' }}
                     tickLine={{ stroke: '#d6d3d1' }}
@@ -399,10 +399,10 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
                     width={45}
                   />
                   <Tooltip content={<LineTooltip />} />
-                  <Line
-                    type="monotone"
-                    dataKey="average"
-                    stroke="#0d9488"
+                  <Line 
+                    type="monotone" 
+                    dataKey="average" 
+                    stroke="#0d9488" 
                     strokeWidth={2}
                     dot={{ fill: '#0d9488', strokeWidth: 2, r: 4 }}
                     activeDot={{ r: 6, fill: '#0d9488' }}
@@ -418,20 +418,20 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
               <h3 className="font-semibold text-stone-700 mb-3 sm:mb-4 text-sm sm:text-base">Top 5 Pacientes por Ingreso</h3>
               <div className="h-48 sm:h-64">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    data={metrics.topPatients}
+                  <BarChart 
+                    data={metrics.topPatients} 
                     layout="vertical"
                     margin={{ top: 10, right: 10, left: 0, bottom: 10 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" horizontal={true} vertical={false} />
-                    <XAxis
+                    <XAxis 
                       type="number"
                       tick={{ fontSize: 10, fill: '#78716c' }}
                       axisLine={{ stroke: '#d6d3d1' }}
                       tickLine={{ stroke: '#d6d3d1' }}
                       tickFormatter={(value) => formatCurrencyShort(value)}
                     />
-                    <YAxis
+                    <YAxis 
                       type="category"
                       dataKey="name"
                       tick={{ fontSize: 10, fill: '#78716c' }}
@@ -463,20 +463,20 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
               <h3 className="font-semibold text-stone-700 mb-3 sm:mb-4 text-sm sm:text-base">Top 5 Pacientes por Ingreso</h3>
               <div className="h-48 sm:h-64">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    data={metrics.topPatients}
+                  <BarChart 
+                    data={metrics.topPatients} 
                     layout="vertical"
                     margin={{ top: 10, right: 10, left: 0, bottom: 10 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" horizontal={true} vertical={false} />
-                    <XAxis
+                    <XAxis 
                       type="number"
                       tick={{ fontSize: 10, fill: '#78716c' }}
                       axisLine={{ stroke: '#d6d3d1' }}
                       tickLine={{ stroke: '#d6d3d1' }}
                       tickFormatter={(value) => formatCurrencyShort(value)}
                     />
-                    <YAxis
+                    <YAxis 
                       type="category"
                       dataKey="name"
                       tick={{ fontSize: 10, fill: '#78716c' }}
@@ -503,7 +503,7 @@ export function MetricsTab({ sessions, treatments, patients }: MetricsTabProps) 
       {metrics.monthlyData.length > 0 && (
         <>
           <h3 className="font-semibold text-stone-700 mb-3 sm:mb-4 text-sm sm:text-base">Detalle por Mes</h3>
-
+          
           {/* Mobile: Cards */}
           <div className="sm:hidden space-y-2 mb-6">
             {metrics.monthlyData.slice().reverse().map(m => (

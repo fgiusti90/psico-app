@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 export default function RecuperarPage() {
   const { resetPassword } = useAuth();
-
+  
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -45,7 +45,7 @@ export default function RecuperarPage() {
             <p className="text-stone-500 mb-6">
               Te enviamos un email a <strong>{email}</strong> con instrucciones para restablecer tu contraseña.
             </p>
-            <Link
+            <Link 
               href="/login"
               className="inline-block px-6 py-2.5 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 transition-colors"
             >

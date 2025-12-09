@@ -9,7 +9,7 @@ import { useAuth } from '@/hooks/useAuth';
 export default function LoginPage() {
   const router = useRouter();
   const { signIn } = useAuth();
-
+  
   const [form, setForm] = useState({
     email: '',
     password: ''
@@ -92,8 +92,8 @@ export default function LoginPage() {
             </div>
 
             <div className="flex justify-end">
-              <Link
-                href="/recuperar"
+              <Link 
+                href="/recuperar" 
                 className="text-sm text-teal-600 hover:text-teal-700"
               >
                 ¿Olvidaste tu contraseña?

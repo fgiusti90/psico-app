@@ -2,12 +2,12 @@
 
 export type PatientStatus = 'active' | 'inactive';
 
-export type SessionType = 'session' | 'parent_orientation' | 'parent_interview';
+export type SessionType = 'session' | 'parent_interview' | 'parent_guidance';
 
 export const SESSION_TYPE_LABELS: Record<SessionType, string> = {
   session: 'Sesión',
-  parent_orientation: 'Orientación a padres',
-  parent_interview: 'Entrevista a padres'
+  parent_interview: 'Entrevista a padres',
+  parent_guidance: 'Orientación a padres'
 };
 
 // ============================================

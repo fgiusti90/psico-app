@@ -12,10 +12,10 @@ interface QuickSessionFormProps {
 }
 
 const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('es-AR', {
-    style: 'currency',
-    currency: 'ARS',
-    maximumFractionDigits: 0
+  return new Intl.NumberFormat('es-AR', { 
+    style: 'currency', 
+    currency: 'ARS', 
+    maximumFractionDigits: 0 
   }).format(amount);
 };
 

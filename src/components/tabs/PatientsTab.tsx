@@ -176,7 +176,7 @@ export function PatientsTab({
 
           {filteredPatients.length === 0 && (
             <p className="text-center text-stone-400 py-10">
-              {searchQuery || statusFilter !== 'all'
+              {searchQuery || statusFilter !== 'all' 
                 ? 'No se encontraron pacientes con esos filtros'
                 : 'No hay pacientes registrados'}
             </p>

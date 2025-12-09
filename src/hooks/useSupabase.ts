@@ -36,11 +36,11 @@ export function useSupabase() {
   // ============================================
   // LOAD ALL DATA
   // ============================================
-
+  
   const loadData = useCallback(async () => {
     setLoading(true);
     setError(null);
-
+    
     try {
       const [
         { data: patients, error: patientsError },
@@ -273,8 +273,8 @@ export function useSupabase() {
    * - Crea un registro en fee_adjustments con la fecha de vigencia indicada
    */
   const applyFeeAdjustment = async (
-    treatmentId: string,
-    newFee: number,
+    treatmentId: string, 
+    newFee: number, 
     effectiveDate: string
   ): Promise<boolean> => {
     try {
@@ -388,7 +388,7 @@ export function useSupabase() {
         feeAdjustments: prev.feeAdjustments
           .map(fa => fa.id === adjustmentId ? updatedAdjustment : fa)
           .sort((a, b) => new Date(b.adjustment_date).getTime() - new Date(a.adjustment_date).getTime()),
-        treatments: updatedTreatment
+        treatments: updatedTreatment 
           ? prev.treatments.map(t => t.id === currentAdjustment.treatment_id ? updatedTreatment : t)
           : prev.treatments
       }));
@@ -454,7 +454,7 @@ export function useSupabase() {
       setData(prev => ({
         ...prev,
         feeAdjustments: prev.feeAdjustments.filter(fa => fa.id !== adjustmentId),
-        treatments: updatedTreatment
+        treatments: updatedTreatment 
           ? prev.treatments.map(t => t.id === treatmentId ? updatedTreatment : t)
           : prev.treatments
       }));
@@ -647,9 +647,9 @@ export function useSupabase() {
   // Obtener sesiones pendientes agrupadas por paciente
   const getPendingSessionsByPatient = useCallback(() => {
     const pending = getPendingSessions();
-    const grouped: Record<string, {
-      patient: Patient;
-      sessions: Session[];
+    const grouped: Record<string, { 
+      patient: Patient; 
+      sessions: Session[]; 
       total: number;
       treatment: Treatment | undefined;
     }> = {};
@@ -657,7 +657,7 @@ export function useSupabase() {
     pending.forEach(session => {
       const treatment = data.treatments.find(t => t.id === session.treatment_id);
       if (!treatment) return;
-
+      
       const patient = data.patients.find(p => p.id === treatment.patient_id);
       if (!patient) return;
 
@@ -696,37 +696,37 @@ export function useSupabase() {
     data,
     loading,
     error,
-
+    
     // Reload
     reload: loadData,
-
+    
     // Patients
     createPatient,
     updatePatient,
     deletePatient,
-
+    
     // Treatments
     createTreatment,
     updateTreatment,
     deleteTreatment,
     getTreatment,
-
+    
     // Fee Adjustments
     createFeeAdjustment,
     applyFeeAdjustment,
     updateFeeAdjustment,
     deleteFeeAdjustment,
-
+    
     // Sessions
     createSession,
     updateSession,
     deleteSession,
     toggleSessionPaid,
-
+    
     // Inflation
     createInflationRecord,
     deleteInflationRecord,
-
+    
     // Helpers
     getPatientTreatments,
     getActiveTreatment,

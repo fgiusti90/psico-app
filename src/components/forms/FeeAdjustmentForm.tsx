@@ -7,13 +7,12 @@ import type { FeeAdjustment } from '@/types/database';
 interface FeeAdjustmentFormProps {
   patientName: string;
   currentFee: number;
-  previousFee: number;
+  previousFee: number; // Para edición: el fee anterior al ajuste
   treatmentId: string;
-  suggestedFee?: number; // NUEVO: Honorario sugerido basado en inflación
-  adjustment?: FeeAdjustment | null;
-  onSave: (data: {
-    treatmentId: string;
-    newFee: number;
+  adjustment?: FeeAdjustment | null; // Si existe, estamos editando
+  onSave: (data: { 
+    treatmentId: string; 
+    newFee: number; 
     effectiveDate: string;
     adjustmentId?: string;
   }) => void;
@@ -22,43 +21,33 @@ interface FeeAdjustmentFormProps {
 }
 
 const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('es-AR', {
-    style: 'currency',
-    currency: 'ARS',
-    maximumFractionDigits: 0
+  return new Intl.NumberFormat('es-AR', { 
+    style: 'currency', 
+    currency: 'ARS', 
+    maximumFractionDigits: 0 
   }).format(amount);
 };
 
-export function FeeAdjustmentForm({
-  patientName,
-  currentFee,
+export function FeeAdjustmentForm({ 
+  patientName, 
+  currentFee, 
   previousFee,
-  treatmentId,
-  suggestedFee,
+  treatmentId, 
   adjustment,
-  onSave,
+  onSave, 
   onDelete,
-  onCancel
+  onCancel 
 }: FeeAdjustmentFormProps) {
   const isEditing = !!adjustment;
+  
+  // Para edición, usamos los valores del ajuste existente
+  // Para creación, usamos el currentFee como referencia
   const baseFee = isEditing ? adjustment.previous_fee : currentFee;
-
-  // Determinar el valor inicial del nuevo honorario
-  const getInitialNewFee = () => {
-    if (isEditing) {
-      return adjustment.new_fee.toString();
-    }
-    // Si hay sugerido y es diferente al actual, usarlo como default
-    if (suggestedFee && suggestedFee !== currentFee) {
-      return suggestedFee.toString();
-    }
-    return '';
-  };
-
+  
   const [form, setForm] = useState({
-    newFee: getInitialNewFee(),
-    effectiveDate: isEditing
-      ? adjustment.adjustment_date
+    newFee: isEditing ? adjustment.new_fee.toString() : '',
+    effectiveDate: isEditing 
+      ? adjustment.adjustment_date 
       : new Date().toISOString().split('T')[0]
   });
 
@@ -72,7 +61,7 @@ export function FeeAdjustmentForm({
     e.preventDefault();
     const newFee = parseFloat(form.newFee);
     if (isNaN(newFee) || newFee <= 0) return;
-
+    
     onSave({
       treatmentId,
       newFee,
@@ -86,12 +75,6 @@ export function FeeAdjustmentForm({
       if (window.confirm('¿Eliminar este ajuste? El honorario volverá al valor anterior.')) {
         onDelete(adjustment.id);
       }
-    }
-  };
-
-  const handleUseSuggested = () => {
-    if (suggestedFee) {
-      setForm({ ...form, newFee: suggestedFee.toString() });
     }
   };
 
@@ -112,30 +95,6 @@ export function FeeAdjustmentForm({
           {formatCurrency(baseFee)}
         </div>
       </div>
-
-      {/* Honorario sugerido (solo en creación y si hay sugerido diferente al actual) */}
-      {!isEditing && suggestedFee && suggestedFee !== currentFee && (
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-stone-600 mb-1.5">
-            Honorario sugerido (según inflación)
-          </label>
-          <div className="flex items-center gap-2">
-            <div className="flex-1 px-3 py-2.5 bg-blue-50 border border-blue-200 rounded-lg text-lg font-semibold text-blue-700">
-              {formatCurrency(suggestedFee)}
-              <span className="text-sm font-normal ml-2 text-blue-500">
-                (+{((suggestedFee - currentFee) / currentFee * 100).toFixed(1)}%)
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={handleUseSuggested}
-              className="px-3 py-2.5 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 transition-colors"
-            >
-              Usar
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Nuevo honorario */}
       <div className="mb-4">

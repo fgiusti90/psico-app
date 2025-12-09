@@ -10,10 +10,11 @@ interface SessionFormProps {
   treatmentId: string;
   currentFee: number;
   onSave: (data: SessionInsert & { id?: string }) => void;
+  onDelete?: (id: string) => void;
   onCancel: () => void;
 }
 
-export function SessionForm({ session, treatmentId, currentFee, onSave, onCancel }: SessionFormProps) {
+export function SessionForm({ session, treatmentId, currentFee, onSave, onDelete, onCancel }: SessionFormProps) {
   const [form, setForm] = useState({
     session_date: session?.session_date || new Date().toISOString().split('T')[0],
     session_type: (session?.session_type || 'session') as SessionType,
@@ -90,20 +91,33 @@ export function SessionForm({ session, treatmentId, currentFee, onSave, onCancel
         </div>
       </div>
 
-      <div className="flex justify-end gap-3 mt-6">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="px-5 py-2.5 bg-white text-stone-600 border border-stone-200 rounded-lg text-sm font-medium hover:bg-stone-50 transition-colors"
-        >
-          Cancelar
-        </button>
-        <button
-          type="submit"
-          className="px-5 py-2.5 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 transition-colors"
-        >
-          Guardar
-        </button>
+      <div className="flex justify-between gap-3 mt-6">
+        <div>
+          {session?.id && onDelete && (
+            <button
+              type="button"
+              onClick={() => onDelete(session.id)}
+              className="px-5 py-2.5 bg-red-50 text-red-600 border border-red-200 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors"
+            >
+              Eliminar
+            </button>
+          )}
+        </div>
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="px-5 py-2.5 bg-white text-stone-600 border border-stone-200 rounded-lg text-sm font-medium hover:bg-stone-50 transition-colors"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            className="px-5 py-2.5 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 transition-colors"
+          >
+            {session?.id ? 'Actualizar' : 'Guardar'}
+          </button>
+        </div>
       </div>
     </form>
   );
