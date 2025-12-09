@@ -8,6 +8,7 @@ interface FeeAdjustmentFormProps {
   patientName: string;
   currentFee: number;
   previousFee: number; // Para edición: el fee anterior al ajuste
+  suggestedFee?: number; // Sugerencia basada en inflación
   treatmentId: string;
   adjustment?: FeeAdjustment | null; // Si existe, estamos editando
   onSave: (data: { 
@@ -32,6 +33,7 @@ export function FeeAdjustmentForm({
   patientName, 
   currentFee, 
   previousFee,
+  suggestedFee,
   treatmentId, 
   adjustment,
   onSave, 
@@ -78,6 +80,12 @@ export function FeeAdjustmentForm({
     }
   };
 
+  const applySuggested = () => {
+    if (suggestedFee) {
+      setForm({ ...form, newFee: suggestedFee.toString() });
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="p-5">
       {/* Info del paciente */}
@@ -95,6 +103,25 @@ export function FeeAdjustmentForm({
           {formatCurrency(baseFee)}
         </div>
       </div>
+
+      {/* Sugerencia basada en inflación */}
+      {!isEditing && suggestedFee && suggestedFee > currentFee && (
+        <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-amber-700 font-medium">Sugerido por inflación</p>
+              <p className="text-lg font-bold text-amber-600">{formatCurrency(suggestedFee)}</p>
+            </div>
+            <button
+              type="button"
+              onClick={applySuggested}
+              className="px-3 py-1.5 bg-amber-100 text-amber-700 rounded-lg text-sm font-medium hover:bg-amber-200 transition-colors"
+            >
+              Aplicar
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Nuevo honorario */}
       <div className="mb-4">
